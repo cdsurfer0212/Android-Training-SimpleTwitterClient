@@ -19,8 +19,22 @@ Completed user stories:
 * [x] Tweets are persisted into sqlite and can be displayed from the local DB
 * [x] Stretch: User can see an embedded media (image) within tweet detail view
 
+* [x] Includes all required user stories from Week 3 Twitter Client
+* [x] User can switch between Timeline and Mention views using tabs.
+	- User can view their home timeline tweets.
+ 	- User can view the recent mentions of their username.
+ 	- User can scroll to bottom of either of these lists and new tweets will load ("infinite scroll")
+	- Optional: Implement this in a gingerbread-compatible approach
+* [x] User can navigate to view their own profile
+	- User can see picture, tagline, # of followers, # of following, and tweets on their profile.
+* [x] User can click on the profile image in any tweet to see another user's profile.
+    - User can see picture, tagline, # of followers, # of following, and tweets of clicked user.
+    - Profile view should include that user's timeline
+
 Walkthrough of all user stories:
 
 ![Video Walkthrough](project_0.gif)
+
+![Video Walkthrough](project_1.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).

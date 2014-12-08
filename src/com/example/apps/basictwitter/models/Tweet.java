@@ -99,6 +99,7 @@ public class Tweet extends Model implements Serializable {
     }
     
     public static void deleteTweets() {
+         SQLiteUtils.execSql("DELETE FROM Users");
          SQLiteUtils.execSql("DELETE FROM Tweets");
          //SQLiteUtils.execSql("drop table if exists Tweets");
     }

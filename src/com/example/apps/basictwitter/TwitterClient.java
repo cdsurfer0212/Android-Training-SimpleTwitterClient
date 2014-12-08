@@ -60,12 +60,69 @@ public class TwitterClient extends OAuthBaseClient {
         Log.d("debug", apiUrl + "?since_id=" + sinceId + "&count=" + count);
     }
     
+    public void getMentionsTimeline(AsyncHttpResponseHandler handler, int count) {
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("count", String.valueOf(count));
+        client.get(apiUrl, params, handler);
+        Log.d("debug", apiUrl + "?count=" + count);
+    }
+    
+    public void getMentionsTimelineWithMaxId(AsyncHttpResponseHandler handler, long maxId, int count) {
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("max_id", String.valueOf(maxId));
+        params.put("count", String.valueOf(count));
+        client.get(apiUrl, params, handler);
+        Log.d("debug", apiUrl + "?max_id=" + maxId + "&count=" + count);
+    }
+    
+    public void getMentionsTimelineWithSinceId(AsyncHttpResponseHandler handler, long sinceId, int count) {
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("since_id", String.valueOf(sinceId));
+        params.put("count", String.valueOf(count));
+        client.get(apiUrl, params, handler);
+        Log.d("debug", apiUrl + "?since_id=" + sinceId + "&count=" + count);
+    }
+    
+    public void getMyInfo(AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("account/verify_credentials.json");
+        client.get(apiUrl, null, handler);
+        
+    }
+    
     public void getStatus(AsyncHttpResponseHandler handler, String id) {
         String apiUrl = getApiUrl("statuses/show.json");
         RequestParams params = new RequestParams();
         params.put("id", id);
         client.getHttpClient().getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);
         client.get(apiUrl, params, handler);
+    }
+    
+    public void getUserInfo(AsyncHttpResponseHandler handler, long id) {
+        String apiUrl = getApiUrl("users/show.json");
+        RequestParams params = new RequestParams();
+        params.put("user_id", String.valueOf(id));
+        client.get(apiUrl, params, handler);
+        
+    }
+    
+    public void getUserTimeline(AsyncHttpResponseHandler handler, int count) {
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("count", String.valueOf(count));
+        client.get(apiUrl, params, handler);
+        
+    }
+    
+    public void getUserTimeline(AsyncHttpResponseHandler handler, long id, int count) {
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("count", String.valueOf(count));
+        params.put("user_id", String.valueOf(id));
+        client.get(apiUrl, params, handler);
+        
     }
     
     public void postStatus(AsyncHttpResponseHandler handler, String text) {

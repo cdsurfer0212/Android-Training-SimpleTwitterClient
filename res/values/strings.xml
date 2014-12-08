@@ -11,5 +11,6 @@
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_tweet">TweetActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>

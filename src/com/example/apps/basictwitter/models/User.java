@@ -13,6 +13,12 @@ public class User extends Model {
     @Column(name = "user_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     private long userId;
     
+    @Column(name = "user_followersCount")
+    private int followersCount;
+    
+    @Column(name = "user_friendsCount")
+    private int friendsCount;
+    
     @Column(name = "user_name")
     private String name;
     
@@ -22,10 +28,21 @@ public class User extends Model {
     @Column(name = "user_screenName")
     private String screenName;
     
+    @Column(name = "user_tagline")
+    private String tagline;
+    
     public long getUserId() {
         return userId;
     }
 
+    public int getFollowersCount() {
+        return followersCount;
+    }
+    
+    public int getFriendsCount() {
+        return friendsCount;
+    }
+    
     public String getName() {
         return name;
     }
@@ -37,6 +54,10 @@ public class User extends Model {
     public String getScreenName() {
         return screenName;
     }
+    
+    public String getTagline() {
+        return tagline;
+    }
 
     public User() {
         super();
@@ -46,9 +67,12 @@ public class User extends Model {
         User user = new User();
         try {
             user.userId = json.getLong("id");
+            user.followersCount= json.getInt("followers_count");
+            user.friendsCount= json.getInt("friends_count");
             user.name = json.getString("name");
             user.profileImageUrl = json.getString("profile_image_url");
             user.screenName = json.getString("screen_name");
+            user.tagline = json.getString("description");
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

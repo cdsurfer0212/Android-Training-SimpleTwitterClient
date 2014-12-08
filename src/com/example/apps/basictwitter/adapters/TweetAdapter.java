@@ -6,15 +6,18 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.apps.basictwitter.R;
+import com.example.apps.basictwitter.activities.ProfileActivity;
 import com.example.apps.basictwitter.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -32,10 +35,22 @@ public class TweetAdapter extends GenericAdapter<Tweet> {
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(mActivity.getBaseContext());
             v = inflater.inflate(R.layout.tweet_item, parent, false);
-
+        }
+        else {
+            v = convertView;
+        }
         
-        ImageView ivProfileImage = (ImageView) v.findViewById(R.id.ivProfileImage);
+        final ImageView ivProfileImage = (ImageView) v.findViewById(R.id.ivProfileImage);
         ivProfileImage.setImageResource(android.R.color.transparent);
+        ivProfileImage.setTag(tweet.getUser().getUserId());
+        ivProfileImage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), ProfileActivity.class);
+                i.putExtra("id", (Long) ivProfileImage.getTag());
+                v.getContext().startActivity(i);
+            }
+        });
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.displayImage(tweet.getUser().getProfileImageUrl(), ivProfileImage);
 
@@ -62,6 +77,7 @@ public class TweetAdapter extends GenericAdapter<Tweet> {
             tvText.setText(text);
             
             LinearLayout llMedia = (LinearLayout) v.findViewById(R.id.llMedia);
+            llMedia.removeAllViews();
             ImageView ivMedia = new ImageView(llMedia.getContext());
             ivMedia.setImageResource(android.R.color.transparent);
             llMedia.addView(ivMedia);
@@ -69,10 +85,7 @@ public class TweetAdapter extends GenericAdapter<Tweet> {
             imageLoader = ImageLoader.getInstance();
             imageLoader.displayImage(tweet.getMedias().get(0).getMediaUrl(), ivMedia);
         }
-        }
-        else {
-            v = convertView;
-        }
+
 
         return v;
     }
